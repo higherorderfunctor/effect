@@ -1,0 +1,16 @@
+diff --git a/mjs/index.mjs b/mjs/index.mjs
+index 947d53afa4375546c9b5421a751b2e0f3136a410..3a4b8c8f1216627dd660f45b248b42f4f5b3b2f6 100644
+--- a/mjs/index.mjs
++++ b/mjs/index.mjs
+@@ -1,5 +1,5 @@
+ import { dprint } from "@effect/eslint-plugin/rules/dprint";
+-import recommended from "./configs/recommended";
++import recommended from "@effect/eslint-plugin/configs/recommended";
+ export const configs = {
+   recommended
+ };
+@@ -7,3 +7,4 @@ export const rules = {
+   dprint
+ };
+ //# sourceMappingURL=index.mjs.map
++

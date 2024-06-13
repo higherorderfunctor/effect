@@ -1,0 +1,12 @@
+diff --git a/parse.js b/parse.js
+index 804186ca975bdc68b11e614d1d1b87598d551dc1..198b8c597f0f1c97f7dfa00fc29dc3c7b244ded8 100644
+--- a/parse.js
++++ b/parse.js
+@@ -93,6 +93,7 @@ exports.default = function parse(path, content, context) {
+   // only parse one file in isolate mode, which is much, much faster.
+   // https://github.com/import-js/eslint-plugin-import/issues/1408#issuecomment-509298962
+   delete parserOptions.EXPERIMENTAL_useProjectService;
++  delete parserOptions.projectService;
+   delete parserOptions.project;
+   delete parserOptions.projects;
+ 

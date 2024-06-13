@@ -1,15 +1,20 @@
-/* eslint-disable no-undef */
 module.exports = {
   root: true,
-  ignorePatterns: ["dist", "build", "docs", "*.md"],
   parser: "@typescript-eslint/parser",
   parserOptions: {
-    ecmaVersion: 2018,
-    sourceType: "module"
+    ecmaVersion: "latest",
+    sourceType: "module",
+    warnOnUnsupportedTypeScriptVersion: false,
+    tsconfigRootDir: __dirname,
+    extraFileExtensions: [".vue"], // optimization only for ProjectService to prevent project refresh
+    projectService: {
+      incremental: true
+    }
   },
   settings: {
     "import/parsers": {
-      "@typescript-eslint/parser": [".ts", ".tsx"]
+      espree: [".js", ".cjs", ".mjs", ".jsx"],
+      "@typescript-eslint/parser": [".ts", ".cts", ".mts", ".tsx"],
     },
     "import/resolver": {
       typescript: {
@@ -20,7 +25,7 @@ module.exports = {
   extends: [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/strict-type-checked",
     "plugin:@effect/recommended"
   ],
   plugins: [
@@ -38,8 +43,8 @@ module.exports = {
     "prefer-destructuring": "off",
     "sort-imports": "off",
     "no-restricted-syntax": ["error", {
-        "selector": "CallExpression[callee.property.name='push'] > SpreadElement.arguments",
-        "message": "Do not use spread arguments in Array.push"
+      "selector": "CallExpression[callee.property.name='push'] > SpreadElement.arguments",
+      "message": "Do not use spread arguments in Array.push"
     }],
     "no-unused-vars": "off",
     "prefer-rest-params": "off",
@@ -92,5 +97,52 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+  overrides: [
+    {
+      files: ["*.vue"],
+      parser: "vue-eslint-parser",
+      parserOptions: {
+        ecmaVersion: "latest",
+        sourceType: "module",
+        parser: {
+          js: "@typescript-eslint/parser",
+          ts: "@typescript-eslint/parser",
+          "<template>": "@typescript-eslint/parser"
+        },
+        warnOnUnsupportedTypeScriptVersion: false,
+        tsconfigRootDir: __dirname,
+        extraFileExtensions: [".vue"], // optimization only for ProjectService to prevent project refresh
+        projectService: {
+          incremental: true
+        }
+      },
+      settings: {
+        "import/parsers": {
+          espree: [".js", ".cjs", ".mjs", ".jsx"],
+          "@typescript-eslint/parser": [".ts", ".cts", ".mts", ".tsx"],
+          "vue-eslint-parser": [".vue"]
+        },
+        "import/resolver": {
+          typescript: {
+            alwaysTryTypes: true
+          }
+        }
+      },
+      extends: [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/strict-type-checked",
+        "plugin:@effect/recommended",
+        "plugin:vue/vue3-recommended",
+        "@vue/eslint-config-typescript/recommended",
+        "plugin:vuetify/recommended",
+        "plugin:vuejs-accessibility/recommended",
+        "@vue/eslint-config-prettier"
+      ],
+      rules: {
+        "codegen/codegen": "off"
+      }
+    }
+  ]
 }

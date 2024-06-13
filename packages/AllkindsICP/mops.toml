@@ -1,0 +1,11 @@
+[dependencies]
+base = "0.11.1"
+itertools = "0.2.1"
+StableBuffer = "https://github.com/canscale/StableBuffer#master@acdde6bb5b939227997cebdbb8919d2e6da8691c"
+map = "9.0.1"
+prng = "0.0.3"
+bench = "1.0.0"
+
+[toolchain]
+moc = "0.11.1"
+pocket-ic = "1.0.0"

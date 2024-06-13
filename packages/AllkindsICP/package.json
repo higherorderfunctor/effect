@@ -1,0 +1,44 @@
+{
+    "name": "allkinds",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "nuxt build --prerender",
+        "dev": "nuxt dev",
+        "generate": "nuxt generate",
+        "preview": "nuxt preview",
+        "postinstall": "nuxt prepare",
+        "dfx-generate": "dfx generate && npm run patch1 && npm run patch2 && npm run patch3",
+        "patch1": "sed -i '/^import type . Principal/d' src/declarations/backend/backend.did.d.ts",
+        "patch2": "sed -i '1s/^/import type { Principal as PrincipalInternal} from \"@dfinity\\/principal\";\\n/' src/declarations/backend/backend.did.d.ts",
+        "patch3": "sed -i '2s/^/export type Principal = Omit<Principal, \"_arr\">;\\n/' src/declarations/backend/backend.did.d.ts"
+    },
+    "devDependencies": {
+        "@dfinity/auth-client": "^1.0.1",
+        "@dfinity/identity": "^1.0.1",
+        "@nuxt/devtools": "latest",
+        "@nuxtjs/google-fonts": "^3.0.2",
+        "@nuxtjs/tailwindcss": "^6.8.0",
+        "@playwright/test": "^1.40.1",
+        "@tailwindcss/typography": "^0.5.10",
+        "@types/node": "^20.10.1",
+        "daisyui": "^3.9.2",
+        "nuxt": "^3.10.3",
+        "nuxt-icon": "^0.5.0",
+        "prettier": "^3.2.5",
+        "prettier-plugin-motoko": "^0.8.4",
+        "vue": "^3.3.4",
+        "vue-router": "^4.2.5",
+        "vue-textarea-autogrow-directive": "^0.2.0"
+    },
+    "dependencies": {
+        "@pinia/nuxt": "^0.5.1",
+        "effect": "^2.4.0",
+        "moment": "^2.30.1",
+        "pinia": "^2.1.7",
+        "posthog-js": "^1.97.1",
+        "theme-change": "^2.5.0",
+        "vue-number-animation": "^2.0.2",
+        "vue3-toastify": "^0.1.14"
+    }
+}

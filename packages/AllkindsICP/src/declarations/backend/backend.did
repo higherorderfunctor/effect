@@ -1,0 +1,422 @@
+type User__1 = 
+ record {
+   about: text;
+   contact: text;
+   created: Time;
+   displayName: text;
+   picture: opt blob;
+   stats: UserStats;
+   username: text;
+ };
+type UserStats = 
+ record {
+   answered: nat;
+   asked: nat;
+   boosts: nat;
+   points: nat;
+ };
+type UserPermissions = 
+ record {
+   notifications: vec Notification;
+   permissions: AdminPermissions;
+   user: User__1;
+ };
+type UserNotifications = 
+ record {
+   notifications: vec Notification;
+   user: User__1;
+ };
+type UserMatch = 
+ record {
+   answered: vec record {
+                   Question__2;
+                   AnswerDiff;
+                 };
+   cohesion: nat8;
+   errors: vec Error__1;
+   uncommon: vec Question__2;
+   user: UserInfo;
+ };
+type UserInfo = 
+ record {
+   about: text;
+   contact: text;
+   displayName: text;
+   picture: opt blob;
+   username: text;
+ };
+type User = 
+ record {
+   about: text;
+   contact: text;
+   created: Time;
+   displayName: text;
+   picture: opt blob;
+   stats: UserStats;
+   username: text;
+ };
+type Time = int;
+type TeamUserInfo = 
+ record {
+   info: TeamInfo__1;
+   invite: opt text;
+   key: text;
+   permissions: Permissions;
+   userInvite: opt text;
+ };
+type TeamStats = 
+ record {
+   answers: nat;
+   connections: nat;
+   questions: nat;
+   users: nat;
+ };
+type TeamInfo__1 = 
+ record {
+   about: text;
+   listed: bool;
+   logo: blob;
+   name: text;
+ };
+type TeamInfo = 
+ record {
+   about: text;
+   listed: bool;
+   logo: blob;
+   name: text;
+ };
+type StableQuestion = 
+ record {
+   color: text;
+   created: Time;
+   creator: principal;
+   hidden: bool;
+   id: QuestionID__1;
+   points: int;
+   question: text;
+   showCreator: bool;
+ };
+type Skip = 
+ record {
+   question: nat;
+   reason: variant {
+             flag;
+             skip;
+           };
+ };
+type ResultVoid = 
+ variant {
+   err: Error;
+   ok;
+ };
+type ResultUsersNotifications = 
+ variant {
+   err: Error;
+   ok: vec UserNotifications;
+ };
+type ResultUsers = 
+ variant {
+   err: Error;
+   ok: vec User;
+ };
+type ResultUserPermissions = 
+ variant {
+   err: Error;
+   ok: vec UserPermissions;
+ };
+type ResultUserMatches = 
+ variant {
+   err: Error;
+   ok: vec UserMatch;
+ };
+type ResultUser = 
+ variant {
+   err: Error;
+   ok: UserPermissions;
+ };
+type ResultTeams = 
+ variant {
+   err: Error;
+   ok: vec TeamUserInfo;
+ };
+type ResultTeamStats = 
+ variant {
+   err: Error;
+   ok: TeamStats;
+ };
+type ResultTeam = 
+ variant {
+   err: Error;
+   ok: TeamInfo;
+ };
+type ResultSkip = 
+ variant {
+   err: Error;
+   ok: Skip;
+ };
+type ResultQuestionStats = 
+ variant {
+   err: Error;
+   ok: vec QuestionStats;
+ };
+type ResultQuestion = 
+ variant {
+   err: Error;
+   ok: Question;
+ };
+type ResultNat = 
+ variant {
+   err: Error;
+   ok: nat;
+ };
+type ResultMessages = 
+ variant {
+   err: Error;
+   ok: record {
+         messages: vec Message__1;
+         status: ChatStatus;
+       };
+ };
+type ResultFriends = 
+ variant {
+   err: Error;
+   ok: vec Friend;
+ };
+type ResultAnswer = 
+ variant {
+   err: Error;
+   ok: Answer;
+ };
+type Result = 
+ variant {
+   err: Error;
+   ok: text;
+ };
+type Question__2 = 
+ record {
+   color: text;
+   created: Time;
+   creator: opt text;
+   deleted: bool;
+   id: QuestionID__1;
+   points: int;
+   question: text;
+ };
+type Question__1 = 
+ record {
+   color: text;
+   created: Time;
+   creator: opt text;
+   deleted: bool;
+   id: QuestionID__1;
+   points: int;
+   question: text;
+ };
+type QuestionStats = 
+ record {
+   answers: nat;
+   boosts: nat;
+   no: nat;
+   question: Question__1;
+   skips: nat;
+   yes: nat;
+ };
+type QuestionID__1 = nat;
+type QuestionID = nat;
+type Question = 
+ record {
+   color: text;
+   created: Time;
+   creator: opt text;
+   deleted: bool;
+   id: QuestionID__1;
+   points: int;
+   question: text;
+ };
+type Permissions = 
+ record {
+   isAdmin: bool;
+   isMember: bool;
+ };
+type Notification = 
+ record {
+   event:
+    variant {
+      chat: record {
+              latest: Message;
+              unread: nat;
+              user: text;
+            };
+      friendRequests: nat;
+      newQuestions: nat;
+      rewards: nat;
+    };
+   team: vec text;
+ };
+type Message__1 = 
+ record {
+   content: text;
+   sender: bool;
+   time: Time;
+ };
+type Message = 
+ record {
+   content: text;
+   sender: bool;
+   time: Time;
+ };
+type FriendStatus = 
+ variant {
+   connected;
+   rejectionReceived;
+   rejectionSend;
+   requestReceived;
+   requestSend;
+ };
+type Friend = 
+ record {
+   UserMatch;
+   FriendStatus;
+ };
+type Error__1 = 
+ variant {
+   alreadyRegistered;
+   friendAlreadyConnected;
+   friendRequestAlreadySend;
+   insufficientFunds;
+   invalidColor;
+   invalidInvite;
+   nameNotAvailable;
+   notAFriend;
+   notEnoughAnswers;
+   notInTeam;
+   notLoggedIn;
+   notRegistered: principal;
+   permissionDenied;
+   questionNotFound;
+   teamNotFound;
+   tooLong;
+   tooShort;
+   userNotFound;
+   validationError;
+ };
+type Error = 
+ variant {
+   alreadyRegistered;
+   friendAlreadyConnected;
+   friendRequestAlreadySend;
+   insufficientFunds;
+   invalidColor;
+   invalidInvite;
+   nameNotAvailable;
+   notAFriend;
+   notEnoughAnswers;
+   notInTeam;
+   notLoggedIn;
+   notRegistered: principal;
+   permissionDenied;
+   questionNotFound;
+   teamNotFound;
+   tooLong;
+   tooShort;
+   userNotFound;
+   validationError;
+ };
+type ChatStatus = record {unread: nat;};
+type AnswerDiff = 
+ record {
+   question: nat;
+   sameAnswer: bool;
+   weight: nat;
+ };
+type Answer = 
+ record {
+   answer: bool;
+   created: Time;
+   question: nat;
+   weight: nat;
+ };
+type AdminPermissions__1 = 
+ record {
+   becomeTeamAdmin: bool;
+   becomeTeamMember: bool;
+   createBackup: bool;
+   createTeam: bool;
+   editUser: bool;
+   listAllTeams: bool;
+   restoreBackup: bool;
+   suspendUser: bool;
+ };
+type AdminPermissions = 
+ record {
+   becomeTeamAdmin: bool;
+   becomeTeamMember: bool;
+   createBackup: bool;
+   createTeam: bool;
+   editUser: bool;
+   listAllTeams: bool;
+   restoreBackup: bool;
+   suspendUser: bool;
+ };
+service : {
+  airdrop: (text, int) -> (ResultVoid);
+  answerFriendRequest: (text, text, bool) -> (ResultVoid);
+  /// Create a backup of friend status
+  backupConnections: (text, nat, nat) ->
+   (vec record {
+          principal;
+          principal;
+          FriendStatus;
+        }) query;
+  /// Create a backup of questions
+  backupQuestions: (text, nat, nat) -> (vec StableQuestion) query;
+  /// Create a backup of users
+  backupUsers: (nat, nat) -> (vec record {
+                                    principal;
+                                    User;
+                                  }) query;
+  cleanup: (text, nat) -> (Result);
+  createQuestion: (text, text, text) -> (ResultQuestion);
+  createTeam: (text, text, TeamInfo) -> (ResultTeam);
+  createTestData: (text, nat, nat) -> (nat);
+  createUser: (text, text, text) -> (ResultUser);
+  deleteAnswers: (text, text) -> (ResultVoid);
+  deleteQuestion: (text, Question, bool) -> (ResultVoid);
+  deleteUser: (text) -> (ResultVoid);
+  getAnsweredQuestions: (text, nat) -> (vec record {
+                                              Question;
+                                              Answer;
+                                            }) query;
+  getFriends: (text) -> (ResultFriends) query;
+  getMatches: (text) -> (ResultUserMatches) query;
+  getMessages: (text, text) -> (ResultMessages) query;
+  getOwnQuestions: (text, nat) -> (vec Question) query;
+  getPermissions: () ->
+   (record {
+      permissions: AdminPermissions__1;
+      "principal": principal;
+      user: opt User;
+    }) query;
+  getQuestionStats: (text, nat) -> (ResultQuestionStats) query;
+  getTeamAdmins: (text) -> (ResultUsers) query;
+  getTeamMembers: (text) -> (ResultUsers) query;
+  getTeamStats: (text) -> (ResultTeamStats) query;
+  getUnansweredQuestions: (text, nat) -> (vec Question) query;
+  getUser: () -> (ResultUser) query;
+  joinTeam: (text, text, opt text) -> (ResultTeam);
+  leaveTeam: (text, text) -> (ResultVoid);
+  listAdmins: () -> (ResultUserPermissions) query;
+  listTeams: (vec text) -> (ResultTeams) query;
+  listUsers: () -> (ResultUsersNotifications) query;
+  markMessageRead: (text, text) -> (ResultNat);
+  /// Send a friend request to a user
+  sendFriendRequest: (text, text) -> (ResultVoid);
+  sendMessage: (text, text, text) -> (ResultVoid);
+  setPermissions: (text, AdminPermissions__1) -> (ResultVoid);
+  setTeamAdmin: (text, text, bool) -> (ResultTeam);
+  submitAnswer: (text, QuestionID, bool, nat) -> (ResultAnswer);
+  submitSkip: (text, nat) -> (ResultSkip);
+  updateProfile: (User) -> (ResultUser);
+  updateTeam: (text, text, TeamInfo) -> (ResultTeam);
+  whoami: () -> (principal) query;
+}
