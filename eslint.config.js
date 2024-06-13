@@ -173,7 +173,7 @@ const vueOverrides = {
         "<template>": tseslint.parser
       },
       extraFileExtensions: [".vue"] // let's project service treat vue files as ts
-    },
+    }
   },
   plugins: {
     ...tsOverrides.plugins
